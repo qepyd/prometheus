@@ -10,6 +10,10 @@
 #
 #scrape_configs:
   - job_name: "wyc-linux-servers"
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    scheme: http
+    metrics_path: /metrics
     static_configs:
     - targets: 
       - "172.31.7.201:9100"   # 9100是node_exporter默认监听的端口
@@ -18,6 +22,10 @@
         "env": "prod"
 
   - job_name: "jmsco-linux-servers"
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    scheme: http
+    metrics_path: /metrics
     static_configs:
     - targets:
       - "172.31.7.202:9100"  # 9100是node_exporter默认监听的端口

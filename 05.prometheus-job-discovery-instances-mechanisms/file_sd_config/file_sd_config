@@ -1,0 +1,33 @@
+#### 说明
+#
+#  Prometheus其prometheus.yaml中的job通过"静态配置(static_configs)"发现instances(实例)
+#  参考：https://prometheus.io/docs/prometheus/latest/configuration/configuration/#file_sd_config
+#     
+#### 结束
+
+
+#### 以node_exporter的实例为例
+#
+#scrape_configs:
+  - job_name: "wyc-linux-servers"
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    scheme: http
+    metrics_path: /metrics
+    file_sd_configs:
+    - files:
+      - "/usr/local/prometheus/file-sd-config/wyc-linux-servers.yaml"
+      # 刷新文件中内容的间隔时间，默认5m
+      refresh_interval: 2s
+
+  - job_name: "jmsco-linux-servers"
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    scheme: http
+    metrics_path: /metrics
+    file_sd_configs:
+    - files:
+      - "/usr/local/prometheus/file-sd-config/jmsco-linux-servers.yaml"
+      # 刷新文件中内容的间隔时间，默认5m
+      refresh_interval: 2s
+
