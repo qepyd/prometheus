@@ -11,7 +11,7 @@ ls -ld /usr/local/prometheus-2.24.0.linux-amd64
 ln -svf /usr/local/prometheus-2.24.0.linux-amd64   /usr/local/prometheus
 ```
 
-# 3.配置/启动prometheus
+# 3.启动prometheus
 **创建prometheus.service文件**
 ```
 cat >/etc/systemd/system/prometheus.service<<'EOF'

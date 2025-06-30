@@ -11,7 +11,7 @@ ls -ld  /usr/local/node_exporter-1.9.1.linux-amd64
 ln -svf /usr/local/node_exporter-1.9.1.linux-amd64   /usr/local/node_exporter
 ```
 
-# 3.配置/启动node_exporter
+# 3.启动node_exporter
 **创建node_exporter.service文件**
 ```
 cat >/etc/systemd/system/node_exporter.service<<'EOF'

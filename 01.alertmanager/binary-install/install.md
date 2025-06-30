@@ -12,10 +12,10 @@ ls -ld /usr/local/alertmanager-0.27.0.linux-amd64/
 ln -svf /usr/local/alertmanager-0.27.0.linux-amd64/  /usr/local/alertmanager
 ```
 
-# 3.启动altermanager
-**创建altermanager.service文件**
+# 3.启动alertmanager
+**创建alertmanager.service文件**
 ```
-cat >/etc/systemd/system/altermanager.service<<'EOF'
+cat >/etc/systemd/system/alertmanager.service<<'EOF'
 [Unit]
 Description=alertmanager service
 After=network.target
@@ -43,16 +43,16 @@ chown -R root:root /usr/local/alertmanager/
 
 ## 启动
 systemctl daemon-reload
-systemctl start  altermanager.service
-systemctl status altermanager.service
+systemctl start  alertmanager.service
+systemctl status alertmanager.service
 ss -lntup | grep 9093
 
 ## 加入开机自启动
-systemctl enable     altermanager.service
-systemctl is-enabled altermanager.service
+systemctl enable     alertmanager.service
+systemctl is-enabled alertmanager.service
 ```
 
-**浏览器访问altermanager**
+**浏览器访问alertmanager**
 ```
 http://IP:9093
 ```
