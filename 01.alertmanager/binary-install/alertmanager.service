@@ -1,5 +1,5 @@
 [Unit]
-Description=prometheus service
+Description=alertmanager service
 After=network.target
 
 [Service]
@@ -8,8 +8,8 @@ Type=simple
 User=root
 Group=root
 
-WorkingDirectory=/usr/local/prometheus/
-ExecStart=/usr/local/prometheus/prometheus 
+WorkingDirectory=/usr/local/alertmanager/
+ExecStart=/usr/local/alertmanager/alertmanager
 KillMode=control-group
 Restart=on-failure
 

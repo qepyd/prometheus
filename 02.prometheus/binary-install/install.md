@@ -25,7 +25,8 @@ Type=simple
 User=root
 Group=root
 
-ExecStart=/usr/local/prometheus/prometheus --config.file=/usr/local/prometheus/prometheus.yml
+WorkingDirectory=/usr/local/prometheus/
+ExecStart=/usr/local/prometheus/prometheus 
 KillMode=control-group
 Restart=on-failure
 
