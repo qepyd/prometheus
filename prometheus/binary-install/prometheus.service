@@ -1,0 +1,17 @@
+[Unit]
+Description=prometheus service
+After=network.target
+
+[Service]
+Type=simple
+
+User=root
+Group=root
+
+ExecStart=/usr/local/prometheus/prometheus --config.file=/usr/local/prometheus/prometheus.yml
+KillMode=control-group
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+

@@ -58,3 +58,8 @@ systemctl enable     node_exporter.service
 systemctl is-enabled node_exporter.service
 ```
 
+**浏览器访问node_exporter**
+```
+http://IP:9100/metrics
+```
+
