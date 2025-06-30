@@ -1,0 +1,27 @@
+#### 说明
+#
+#  Prometheus其prometheus.yaml中的job通过"静态配置(static_configs)"发现instances(实例)
+#  参考：https://prometheus.io/docs/prometheus/latest/configuration/configuration/#static_config
+#     
+#### 结束
+
+
+#### 以node_exporter的实例为例
+#
+#scrape_configs:
+  - job_name: "wyc-linux-servers"
+    static_configs:
+    - targets: 
+      - "172.31.7.201:9100"   # 9100是node_exporter默认监听的端口
+      labels:
+        "project": "wyc"
+        "env": "prod"
+
+  - job_name: "jmsco-linux-servers"
+    static_configs:
+    - targets:
+      - "172.31.7.202:9100"  # 9100是node_exporter默认监听的端口
+      labels:
+        "project": "jmsco"
+        "env": "prod"
+     
