@@ -9,14 +9,14 @@
 #### 以node_exporter的实例为例
 #
 #scrape_configs:
-  - job_name: "wyc-linux-servers"
+  - job_name: "wyc-prod-linux-servers"
     scrape_interval: 15s
     scrape_timeout: 10s
     scheme: http
     metrics_path: /metrics
     file_sd_configs:
     - files:
-      - "/usr/local/prometheus/file-sd-config/wyc-linux-servers.yaml"
+      - "/usr/local/prometheus/file-sd-config/wyc-prod-linux-servers.yaml"
       # 刷新文件中内容的间隔时间，默认5m
       refresh_interval: 2s
 
@@ -27,7 +27,7 @@
     metrics_path: /metrics
     file_sd_configs:
     - files:
-      - "/usr/local/prometheus/file-sd-config/jmsco-linux-servers.yaml"
+      - "/usr/local/prometheus/file-sd-config/jmsco-prod-linux-servers.yaml"
       # 刷新文件中内容的间隔时间，默认5m
       refresh_interval: 2s
 

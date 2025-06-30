@@ -9,7 +9,7 @@
 #### 以node_exporter的实例为例
 #
 #scrape_configs:
-  - job_name: "wyc-linux-servers"
+  - job_name: "wyc-prod-linux-servers"
     scrape_interval: 15s
     scrape_timeout: 10s
     scheme: http
@@ -21,7 +21,7 @@
         "project": "wyc"
         "env": "prod"
 
-  - job_name: "jmsco-linux-servers"
+  - job_name: "jmsco-prod-linux-servers"
     scrape_interval: 15s
     scrape_timeout: 10s
     scheme: http
