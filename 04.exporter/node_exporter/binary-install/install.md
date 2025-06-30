@@ -28,7 +28,6 @@ Group=root
 
 WorkingDirectory=/usr/local/node_exporter/
 ExecStart=/usr/local/node_exporter/node_exporter \
-  --collector.ntp                                \
   --collector.mountstats                         \
   --collector.systemd                            \
   --collector.sysctl                             \
