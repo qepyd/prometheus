@@ -1,10 +1,9 @@
 #### 说明
 #
-# prometheus配置文件prometheus.yml中rule_files字段中进行配置
-# 以下是相关的示例 
+# prometheus加载一些规则(rules),例如告警规则、记录规则
+#   在prometheus配置文件prometheus.yml中的rule_files:字段中进行配置
 # 
 #### 结束
-
 
 rule_files:
   #### jmsco project 相关的告警规则

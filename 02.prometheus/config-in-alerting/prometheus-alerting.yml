@@ -1,9 +1,9 @@
-### 说明 
+#### 说明 
 # 
-# prometheus对接alertmanager，因为会将告警信息push给alertmanager。
-# 在prometheus的配置文件prometheus.yml中其alerting.alertmanagers字段
-# 中进行配置
+# prometheus对接alertmanager
+#   在prometheus的配置文件prometheus.yml中其alerting:字段中进行配置
 #
+#### 结束
 
 alerting:
   alertmanagers:
