@@ -1,0 +1,16 @@
+#### 说明
+#
+# prometheus配置文件prometheus.yml中rule_files字段中进行配置
+# 以下是相关的示例 
+# 
+#### 结束
+
+
+rule_files:
+  #### jmsco project 相关的告警规则
+  - "/usr/local/prometheus/rules/jmsco-project/prod/alerting-rules/node_exporter.yaml"
+  #- "/usr/local/prometheus/rules/jmsco-project/prod/alerting-rules/mysqld_exporter.yaml"
+
+  #### wyc project 相关的告警规则
+  - "/usr/local/prometheus/rules/wyc-project/prod/alerting-rules/node_exporter.yaml"
+  #- "/usr/local/prometheus/rules/wyc-project/prod/alerting-rules/mysqld_exporter.yaml"

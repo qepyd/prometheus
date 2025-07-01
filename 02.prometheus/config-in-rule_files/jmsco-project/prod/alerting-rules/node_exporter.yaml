@@ -1,0 +1,21 @@
+groups:
+  - name: node_exporter 
+    rules: 
+    - alert: "Linux服务器或node-exporter进程已停止"
+      for: 2m
+      expr: up{job='jmsco-prod-linux-servers'} == 0
+      labels:
+        severity: critical
+      annotations:
+        summary: "Job {{ $labels.job }} internal instance {{ $labels.instance }}"
+        description: "实例停止 或 实例所在服务器停机"
+
+    - alert: "Linux服务器内存使用率>90%"
+      for: 2m
+      expr: ( node_memory_MemTotal_bytes{job='jmsco-prod-linux-servers'} - ( node_memory_MemFree_bytes{job='jmsco-prod-linux-servers'} +  node_memory_Buffers_bytes{job='jmsco-prod-linux-servers'} +  node_memory_Cached_bytes{job='jmsco-prod-linux-servers'} ) ) / node_memory_MemTotal_bytes{job='jmsco-prod-linux-servers'} * 100  > 90
+      labels:
+        severity: critical
+      annotations:
+        summary: "Job {{ $labels.job }} internal instance {{ $labels.instance }}"
+        description: "实例所在服务器的内存使用率>90%" 
+

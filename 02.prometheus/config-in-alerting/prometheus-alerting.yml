@@ -1,0 +1,13 @@
+### 说明 
+# 
+# prometheus对接alertmanager，因为会将告警信息push给alertmanager。
+# 在prometheus的配置文件prometheus.yml中其alerting.alertmanagers字段
+# 中进行配置
+#
+
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets:
+      - 172.31.7.201:9093
+      #- 172.31.7.202:9093
