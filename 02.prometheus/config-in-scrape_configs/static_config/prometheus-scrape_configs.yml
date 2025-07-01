@@ -9,6 +9,7 @@
 #### 以node_exporter的实例为例
 #
 #scrape_configs:
+  ######## wyc 生产 环境
   - job_name: "wyc-prod-linux-servers"
     scrape_interval: 15s
     scrape_timeout: 10s
@@ -20,7 +21,76 @@
       labels:
         "project": "wyc"
         "env": "prod"
+  #- job_name: "wyc-prod-minio"
+  #  scrape_interval: 15s
+  #  scrape_timeout: 10s
+  #  scheme: http
+  #  metrics_path: /metrics
+  #  static_configs:
+  #  - targets:
+  #    - "IP:PROT"  
+  #    labels:
+  #      "project": "wyc"
+  #      "env": "prod"
+  #- job_name: "wyc-prod-mysql"
+  #  scrape_interval: 15s
+  #  scrape_timeout: 10s
+  #  scheme: http
+  #  metrics_path: /metrics
+  #  static_configs:
+  #  - targets:
+  #    - "IP:PROT"  
+  #    labels:
+  #      "project": "wyc"
+  #      "env": "prod"
+  #- job_name: "wyc-prod-mongodb"
+  #  scrape_interval: 15s
+  #  scrape_timeout: 10s
+  #  scheme: http
+  #  metrics_path: /metrics
+  #  static_configs:
+  #  - targets:
+  #    - "IP:PROT"  
+  #    labels:
+  #      "project": "wyc"
+  #      "env": "prod"
+  #- job_name: "wyc-prod-redis"
+  #  scrape_interval: 15s
+  #  scrape_timeout: 10s
+  #  scheme: http
+  #  metrics_path: /metrics
+  #  static_configs:
+  #  - targets:
+  #    - "IP:PROT"  
+  #    labels:
+  #      "project": "wyc"
+  #      "env": "prod"
+  #- job_name: "wyc-prod-rocketmq"
+  #  scrape_interval: 15s
+  #  scrape_timeout: 10s
+  #  scheme: http
+  #  metrics_path: /metrics
+  #  static_configs:
+  #  - targets:
+  #    - "IP:PROT"
+  #    labels:
+  #      "project": "wyc"
+  #      "env": "prod"
+  #- job_name: "wyc-prod-nacos"
+  #  scrape_interval: 15s
+  #  scrape_timeout: 10s
+  #  scheme: http
+  #  metrics_path: /metrics
+  #  static_configs:
+  #  - targets:
+  #    - "IP:PROT"
+  #    labels:
+  #      "project": "wyc"
+  #      "env": "prod"
 
+
+
+  ######## jmsco 生产 环境
   - job_name: "jmsco-prod-linux-servers"
     scrape_interval: 15s
     scrape_timeout: 10s
@@ -32,4 +102,3 @@
       labels:
         "project": "jmsco"
         "env": "prod"
-     
