@@ -21,7 +21,7 @@ groups:
 
     - alert: "本地磁盘其block的使用率>80%"
       for: 2m
-      expr: ( node_filesystem_size_bytes{job="jmsco-prod-linux-servers",device=~"/de.*"} - node_filesystem_free_bytes{job="jmsco-prod-linux-servers",device=~"/de.*"} )  / node_filesystem_size_bytes{job="jmsco-prod-linux-servers",device=~"/de.*"}  * 100  > 80
+      expr: (node_filesystem_size_bytes{device=~"^/de.*",job="jmsco-prod-linux-servers"} - node_filesystem_free_bytes{device=~"^/de.*",job="jmsco-prod-linux-servers"}) / node_filesystem_size_bytes{device=~"^/de.*",job="jmsco-prod-linux-servers"} * 100 >80 
       labels:
         severity: critical
       annotations:
