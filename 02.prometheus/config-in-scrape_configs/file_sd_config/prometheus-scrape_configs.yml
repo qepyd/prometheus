@@ -15,10 +15,11 @@
     scrape_timeout: 10s
     scheme: http
     metrics_path: /metrics
+    # <== 服务发现机制 之 file_sd_configs
     file_sd_configs:
     - files:
       - "/usr/local/prometheus/file-sd-config/wyc-prod-linux-servers.yaml"
-      # 刷新文件中内容的间隔时间，默认5m
+      # <== 刷新文件内容的间隔时间，默认5m
       refresh_interval: 2s
   #- job_name: "wyc-prod-minio"
   #  scrape_interval: 15s
