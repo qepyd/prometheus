@@ -1,0 +1,60 @@
+#### 说明
+#
+#     
+#### 结束
+
+
+#### 以node_exporter的实例为例
+#
+#scrape_configs:
+  ######## wyc 生产 环境
+  - job_name: "wyc-prod-node-exporter"
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    scheme: http
+    metrics_path: /metrics
+    consul_sd_configs:
+      - server: "consul.qepyd.com:8500"
+        tags:
+        - "wyc"
+        - "prod"
+        - "node"
+        refresh_interval: 2s
+  - job_name: "wyc-prod-minio"
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    scheme: http
+    metrics_path: /metrics
+    consul_sd_configs:
+      - server: "consul.qepyd.com:8500"
+        tags:
+        - "wyc"
+        - "prod"
+        - "minio"
+        refresh_interval: 2m
+
+  ######## jmsco 生产 环境
+  - job_name: "jmsco-prod-node-exporter"
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    scheme: http
+    metrics_path: /metrics
+    consul_sd_configs:
+      - server: "consul.qepyd.com:8500"
+        tags:
+        - "jmsco"
+        - "prod"
+        - "node"
+        refresh_interval: 2m  
+  #- job_name: "jmsco-prod-minio"
+  #  scrape_interval: 15s
+  #  scrape_timeout: 10s
+  #  scheme: http
+  #  metrics_path: /metrics
+  #  consul_sd_configs:
+  #    - server: "consul.qepyd.com:8500"
+  #      tags:
+  #      - "jmsco"
+  #      - "prod"
+  #      - "minio"
+  #      refresh_interval: 2m

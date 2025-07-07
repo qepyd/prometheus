@@ -1,30 +1,48 @@
 groups:
+  #### 规则组的名称
   - name: node_exporter 
+    # <== 组内各规则的评估间隔,若不指定,根据prometheus的glboal.evaluation_interval
+    interval: 15s
+    # <== 用于限制其最多可生成的告警数量，默认为0(无限制)
+    limit: 0
+    # <== 规则列表
     rules: 
-    - alert: "Linux服务器或node-exporter进程已停止"
-      for: 2m
-      expr: up{job='wyc-prod-linux-servers'} == 0
-      labels:
-        severity: critical
-      annotations:
-        summary: "Job {{ $labels.job }} internal instance {{ $labels.instance }}"
-        description: "实例停止 或 实例所在服务器停机"
+      # <== 告警规则的名称
+      - alert: "Linux服务器或node-exporter进程已停止"
+        # <== PromQL表达式,
+        #     当结果不满足时,会成为Inactive(未激活)状态的告警。
+        #     当结果满足时，一定会成pending(待定)状态的告警。
+        #     当结果满足时，满足for字段的条件后,会成为firing(发射)状态的告警，由prometheus推送(push)给告警组件(例如:alertmanager)
+        expr: up{job='jmsco-prod-linux-servers'} == 0 
+        # <== 到达触发告警的条件后,在真正告警之前要持续的时长。
+        #     在满足该时长条件之前，告警状态即为pending，之后将变成firing。
+        for: 2m
+        # <== 在告警上添加的标签,若已添加,则每次告警都会覆盖前一次的标签值。
+        #     支持使用模板化字串。
+        labels:
+          severity: critical
+        # <== 在告警上添加的注解信息,支持使用模板化字串。
+        annotations:
+          summary: "Job {{ $labels.job }} internal instance {{ $labels.instance }}"
+          description: "实例停止 或 实例所在服务器停机"
 
-    - alert: "Linux服务器内存使用率>90%"
-      for: 2m
-      expr: ( node_memory_MemTotal_bytes{job='wyc-prod-linux-servers'} - ( node_memory_MemFree_bytes{job='wyc-prod-linux-servers'} +  node_memory_Buffers_bytes{job='wyc-prod-linux-servers'} +  node_memory_Cached_bytes{job='wyc-prod-linux-servers'} ) ) / node_memory_MemTotal_bytes{job='wyc-prod-linux-servers'} * 100  > 90
-      labels:
-        severity: critical
-      annotations:
-        summary: "Job {{ $labels.job }} internal instance {{ $labels.instance }}"
-        description: "实例所在服务器的内存使用率>90%" 
+      # <== 告警规则的名称
+      - alert: "Linux服务器内存使用率>90%"
+        expr: ( node_memory_MemTotal_bytes{job='wyc-prod-linux-servers'} - ( node_memory_MemFree_bytes{job='wyc-prod-linux-servers'} +  node_memory_Buffers_bytes{job='wyc-prod-linux-servers'} +  node_memory_Cached_bytes{job='wyc-prod-linux-servers'} ) ) / node_memory_MemTotal_bytes{job='wyc-prod-linux-servers'} * 100  > 90
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Job {{ $labels.job }} internal instance {{ $labels.instance }}"
+          description: "实例所在服务器的内存使用率>90%" 
 
-    - alert: "本地磁盘其block的使用率>80%"
-      for: 2m
-      expr: (node_filesystem_size_bytes{device=~"^/de.*",job="wyc-prod-linux-servers"} - node_filesystem_free_bytes{device=~"^/de.*",job="wyc-prod-linux-servers"}) / node_filesystem_size_bytes{device=~"^/de.*",job="wyc-prod-linux-servers"} * 100 >80 
-      labels:
-        severity: critical
-      annotations:
-        summary: "Job {{ $labels.job }} internal instance {{ $labels.instance }}"
-        description: "实例所在服务器其磁盘 {{ $labels.device }}，挂载点 {{ $labels.mountpoint }}"
+      # <== 告警规则的名称
+      - alert: "本地磁盘其block的使用率>80%"
+        for: 2m
+        expr: (node_filesystem_size_bytes{device=~"^/de.*",job="wyc-prod-linux-servers"} - node_filesystem_free_bytes{device=~"^/de.*",job="wyc-prod-linux-servers"}) / node_filesystem_size_bytes{device=~"^/de.*",job="wyc-prod-linux-servers"} * 100 >80 
+        labels:
+          severity: critical
+        annotations:
+          summary: "Job {{ $labels.job }} internal instance {{ $labels.instance }}"
+          description: "实例所在服务器其磁盘 {{ $labels.device }}，挂载点 {{ $labels.mountpoint }}"
 

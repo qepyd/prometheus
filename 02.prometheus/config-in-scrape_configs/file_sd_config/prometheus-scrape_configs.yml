@@ -10,7 +10,7 @@
 #
 #scrape_configs:
   ######## wyc 生产 环境
-  - job_name: "wyc-prod-linux-servers"
+  - job_name: "wyc-prod-node-exporter"
     scrape_interval: 15s
     scrape_timeout: 10s
     scheme: http
@@ -18,9 +18,10 @@
     # <== 服务发现机制 之 file_sd_configs
     file_sd_configs:
     - files:
-      - "/usr/local/prometheus/file-sd-config/wyc-prod-linux-servers.yaml"
+      - "file-sd-configs/wyc-project/prod/wyc-prod-node-exporter.yaml"
       # <== 刷新文件内容的间隔时间，默认5m
       refresh_interval: 2s
+
   #- job_name: "wyc-prod-minio"
   #  scrape_interval: 15s
   #  scrape_timeout: 10s
@@ -28,7 +29,7 @@
   #  metrics_path: /metrics
   #  file_sd_configs:
   #  - files:
-  #    - "/usr/local/prometheus/file-sd-config/wyc-prod-minio.yaml"
+  #    - "file-sd-configs/wyc-project/prod/wyc-prod-minio.yaml"
   #    # 刷新文件中内容的间隔时间，默认5m
   #    refresh_interval: 2s
   #- job_name: "wyc-prod-mysql"
@@ -38,7 +39,7 @@
   #  metrics_path: /metrics
   #  file_sd_configs:
   #  - files:
-  #    - "/usr/local/prometheus/file-sd-config/wyc-prod-mysql.yaml"
+  #    - "file-sd-configs/wyc-project/prod/wyc-prod-mysql.yaml"
   #    # 刷新文件中内容的间隔时间，默认5m
   #    refresh_interval: 2s
   #- job_name: "wyc-prod-mongodb"
@@ -48,7 +49,7 @@
   #  metrics_path: /metrics
   #  file_sd_configs:
   #  - files:
-  #    - "/usr/local/prometheus/file-sd-config/wyc-prod-mongodb.yaml"
+  #    - "file-sd-configs/wyc-project/prod/wyc-prod-mongodb.yaml"
   #    # 刷新文件中内容的间隔时间，默认5m
   #    refresh_interval: 2s
   #- job_name: "wyc-prod-redis"
@@ -58,7 +59,7 @@
   #  metrics_path: /metrics
   #  file_sd_configs:
   #  - files:
-  #    - "/usr/local/prometheus/file-sd-config/wyc-prod-redis.yaml"
+  #    - "file-sd-configs/wyc-project/prod/wyc-prod-redis.yaml"
   #    # 刷新文件中内容的间隔时间，默认5m
   #    refresh_interval: 2s
   #- job_name: "wyc-prod-rocketmq"
@@ -68,7 +69,7 @@
   #  metrics_path: /metrics
   #  file_sd_configs:
   #  - files:
-  #    - "/usr/local/prometheus/file-sd-config/wyc-prod-rocketmq.yaml"
+  #    - "file-sd-configs/wyc-project/prod/wyc-prod-rocketmq.yaml"
   #    # 刷新文件中内容的间隔时间，默认5m
   #    refresh_interval: 2s
   #- job_name: "wyc-prod-nacos"
@@ -78,19 +79,19 @@
   #  metrics_path: /metrics
   #  file_sd_configs:
   #  - files:
-  #    - "/usr/local/prometheus/file-sd-config/wyc-prod-nacos.yaml"
+  #    - "file-sd-configs/wyc-project/prod/wyc-prod-nacos.yaml"
   #    # 刷新文件中内容的间隔时间，默认5m
   #    refresh_interval: 2s
 
   ######## jmsco 生产 环境
-  - job_name: "jmsco-linux-servers"
+  - job_name: "jmsco-prod-node-exporter"
     scrape_interval: 15s
     scrape_timeout: 10s
     scheme: http
     metrics_path: /metrics
     file_sd_configs:
     - files:
-      - "/usr/local/prometheus/file-sd-config/jmsco-prod-linux-servers.yaml"
+      - "file-sd-configs/jmsco-project/prod/jmsco-prod-node-exporter.yaml"
       # 刷新文件中内容的间隔时间，默认5m
       refresh_interval: 2s
 
