@@ -6,8 +6,8 @@
 #### 结束
 
 rule_files:
-  #### wyc项目其生产环境的告警规则和记录规则。
-  #    注意：告警规则会引用记录规则的结果
+  #### wyc项目其生产环境的告警规则。
+  # 
   # <== node_exporter
   - "rules/wyc-project/prod/alerting-rules/node_exporter.yaml"
   # <== minio
@@ -19,7 +19,7 @@ rule_files:
   # <== redis
   #- "rules/wyc-project/prod/alerting-rules/redis_exporter.yaml"
 
-  #### jmsco项目其生产环境的告警规则，没有记录规则。
+  #### jmsco项目其生产环境的告警规则。
   #   
   # <== node_exporter
   - "rules/jmsco-project/prod/alerting-rules/node_exporter.yaml"
