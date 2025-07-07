@@ -1,30 +1,72 @@
 groups:
   - name: node_exporter 
     rules: 
-    - alert: "Linux服务器或node-exporter进程已停止"
+    # <== Linux server or node-exporter down
+    - alert: "LinuxServerOrNodeExporterDown"
+      expr: up{project="jmsco",env="prod"} == 0
       for: 2m
-      expr: up{job='jmsco-prod-linux-servers'} == 0
       labels:
         severity: critical
       annotations:
         summary: "Job {{ $labels.job }} internal instance {{ $labels.instance }}"
-        description: "实例停止 或 实例所在服务器停机"
+        description: "Linux server {{ $labels.instance }}\nor\nnode-exporter {{ $labels.instance }}\nDown"
+    
+    # <== Linux sever disk
+    - alert: "LinuxServerOutOfDiskSpace"
+      expr: (node_filesystem_avail_bytes{project="jmsco",env="prod"} * 100) / node_filesystem_size_bytes{project="jmsco",env="prod"} < 10 and  ON  (instance, device, mountpoint) node_filesystem_readonly{project="jmsco",env="prod"} == 0
+      for: 2m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Linux server out of disk space (instance {{ $labels.instance }})"
+        description: "LinuxServer disk is almost full (< 10% left)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+    
+    # <== Linux server memory
+    - alert: "LinuxServerOutOfMemory"
+      expr: node_memory_MemAvailable_bytes{project="jmsco",env="prod"} / node_memory_MemTotal_bytes{project="jmsco",env="prod"} * 100  < 10 
+      for: 2m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Linux server out of memory (instance {{ $labels.instance }})"
+        description: "LinuxServer memory is filling up (< 10% left)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}" 
+    
+    # <== Linux server cpu
+    - alert: LinuxServerHighCpuLoad
+      expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{project="jmsco",env="prod",mode="idle"}[2m])) * 100) > 80
+      for: 0m
+      labels:
+        severity: warning
+      annotations:
+        summary: Linux server high cpu load (instance {{ $labels.instance }})
+        description: "CPU load is > 80%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+    
+    - alert: LinuxServerCpuHighIowait
+      expr: avg by (instance) (rate(node_cpu_seconds_total{project="jmsco",env="prod",mode="iowait"}[5m])) * 100 > 5
+      for: 0m
+      labels:
+        severity: warning
+      annotations:
+        summary: Linux server cpu high iowait (instance {{ $labels.instance }})
+        description: "CPU iowait > 5%. A high iowait means that you are disk or network bound.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+    
+    # <== Linux network
+    - alert: LinuxServerNetworkInterfaceSaturated
+      expr: (rate(node_network_receive_bytes_total{device!~"^tap.*|^vnet.*|^veth.*|^tun.*"}[1m]) + rate(node_network_transmit_bytes_total{device!~"^tap.*|^vnet.*|^veth.*|^tun.*"}[1m])) / node_network_speed_bytes{device!~"^tap.*|^vnet.*|^veth.*|^tun.*"} > 0.8 < 10000
+      for: 1m
+      labels:
+        severity: warning
+      annotations:
+        summary: Linux server network interface saturated (instance {{ $labels.instance }})
+        description: "The network interface \"{{ $labels.device }}\" on \"{{ $labels.instance }}\" is getting overloaded.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
-    - alert: "Linux服务器内存使用率>90%"
-      for: 2m
-      expr: ( node_memory_MemTotal_bytes{job='jmsco-prod-linux-servers'} - ( node_memory_MemFree_bytes{job='jmsco-prod-linux-servers'} +  node_memory_Buffers_bytes{job='jmsco-prod-linux-servers'} +  node_memory_Cached_bytes{job='jmsco-prod-linux-servers'} ) ) / node_memory_MemTotal_bytes{job='jmsco-prod-linux-servers'} * 100  > 90
+    # <== Linux server conntrack limit
+    - alert: LinuxServerConntrackLimit
+      expr: node_nf_conntrack_entries / node_nf_conntrack_entries_limit > 0.8
+      for: 5m
       labels:
-        severity: critical
+        severity: warning
       annotations:
-        summary: "Job {{ $labels.job }} internal instance {{ $labels.instance }}"
-        description: "实例所在服务器的内存使用率>90%" 
-
-    - alert: "本地磁盘其block的使用率>80%"
-      for: 2m
-      expr: (node_filesystem_size_bytes{device=~"^/de.*",job="jmsco-prod-linux-servers"} - node_filesystem_free_bytes{device=~"^/de.*",job="jmsco-prod-linux-servers"}) / node_filesystem_size_bytes{device=~"^/de.*",job="jmsco-prod-linux-servers"} * 100 >80 
-      labels:
-        severity: critical
-      annotations:
-        summary: "Job {{ $labels.job }} internal instance {{ $labels.instance }}"
-        description: "实例所在服务器其磁盘 {{ $labels.device }}，挂载点 {{ $labels.mountpoint }}"
+        summary: Linux server conntrack limit (instance {{ $labels.instance }})
+        description: "The number of conntrack is approaching limit\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 

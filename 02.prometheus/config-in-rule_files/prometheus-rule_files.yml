@@ -6,10 +6,34 @@
 #### 结束
 
 rule_files:
-  #### jmsco project 相关的告警规则
-  - "/usr/local/prometheus/rules/jmsco-project/prod/alerting-rules/node_exporter.yaml"
-  #- "/usr/local/prometheus/rules/jmsco-project/prod/alerting-rules/mysqld_exporter.yaml"
+  #### wyc项目其生产环境的告警规则和记录规则。
+  #    注意：告警规则会引用记录规则的结果
+  # <== node_exporter
+  - "rules/wyc-project/prod/recording-rules/node_exporter.yaml"
+  - "rules/wyc-project/prod/alerting-rules/node_exporter.yaml"
+  # <== minio
+  #- "rules/wyc-project/prod/recording-rules/minio.yaml"
+  #- "rules/wyc-project/prod/alerting-rules/minio.yaml"
+  # <== mysql
+  #- "rules/wyc-project/prod/recording-rules/mysqld_exporter.yaml"
+  #- "rules/wyc-project/prod/alerting-rules/mysqld_exporter.yaml"
+  # <== mongodb
+  #- "rules/wyc-project/prod/recording-rules/mongodb_exporter.yaml"
+  #- "rules/wyc-project/prod/alerting-rules/mongodb_exporter.yaml"
+  # <== redis
+  #- "rules/wyc-project/prod/recording-rules/redis_exporter.yaml"
+  #- "rules/wyc-project/prod/alerting-rules/redis_exporter.yaml"
 
-  #### wyc project 相关的告警规则
-  - "/usr/local/prometheus/rules/wyc-project/prod/alerting-rules/node_exporter.yaml"
-  #- "/usr/local/prometheus/rules/wyc-project/prod/alerting-rules/mysqld_exporter.yaml"
+  #### jmsco项目其生产环境的告警规则，没有记录规则。
+  #   
+  # <== node_exporter
+  - "rules/jmsco-project/prod/alerting-rules/node_exporter.yaml"
+  # <== minio
+  #- "rules/jmsco-project/prod/alerting-rules/minio.yaml"
+  # <== mysql
+  #- "rules/jmsco-project/prod/alerting-rules/mysqld_exporter.yaml"
+  # <== mongodb
+  #- "rules/jmsco-project/prod/alerting-rules/mongodb_exporter.yaml"
+  # <== redis
+  #- "rules/jmsco-project/prod/alerting-rules/redis_exporter.yaml"
+
