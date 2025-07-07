@@ -9,7 +9,7 @@ groups:
         severity: critical
       annotations:
         summary: "LinuxServerOrNodeExporterDown({{ $labels.instance }})"
-        description: "Linux server {{ $labels.instance }}\nor\nnode-exporter {{ $labels.instance }}\nDown"
+        description: "Linux server {{ $labels.host }}\nor\nnode-exporter {{ $labels.instance }}\nDown"
     
     # <== Linux sever disk
     - alert: "LinuxServerOutOfDiskSpace"
@@ -18,7 +18,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: "LinuxServerOutOfDiskSpace({{ $labels.instance }})"
+        summary: "LinuxServerOutOfDiskSpace({{ $labels.host }})"
         description: "LinuxServer disk is almost full (< 10% left)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
     
     # <== Linux server memory
@@ -28,44 +28,45 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: "LinuxServerOutOfMemory({{ $labels.instance }})"
+        summary: "LinuxServerOutOfMemory({{ $labels.host }})"
         description: "LinuxServer memory is filling up (< 10% left)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}" 
     
     # <== Linux server cpu
     - alert: LinuxServerHighCpuLoad
-      expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{project="jmsco",env="prod",mode="idle"}[2m])) * 100) > 80
+      expr: 100 - (avg by(instance,host) (rate(node_cpu_seconds_total{project="jmsco",env="prod",mode="idle"}[2m])) * 100) > 80
       for: 0m
       labels:
         severity: warning
       annotations:
-        summary: "LinuxServerHighCpuLoad({{ $labels.instance }})"
+        summary: "LinuxServerHighCpuLoad({{ $labels.host }})"
         description: "CPU load is > 80%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
     
     - alert: LinuxServerCpuHighIowait
-      expr: avg by (instance) (rate(node_cpu_seconds_total{project="jmsco",env="prod",mode="iowait"}[5m])) * 100 > 5
+      expr: avg by (instance,host) (rate(node_cpu_seconds_total{project="jmsco",env="prod",mode="iowait"}[5m])) * 100 > 5
       for: 0m
       labels:
         severity: warning
       annotations:
-        summary: "LinuxServerCpuHighIowait({{ $labels.instance }})"
+        summary: "LinuxServerCpuHighIowait({{ $labels.host }})"
         description: "CPU iowait > 5%. A high iowait means that you are disk or network bound.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
     
     # <== Linux network
     - alert: LinuxServerNetworkInterfaceSaturated
-      expr: (rate(node_network_receive_bytes_total{device!~"^tap.*|^vnet.*|^veth.*|^tun.*"}[1m]) + rate(node_network_transmit_bytes_total{device!~"^tap.*|^vnet.*|^veth.*|^tun.*"}[1m])) / node_network_speed_bytes{device!~"^tap.*|^vnet.*|^veth.*|^tun.*"} > 0.8 < 10000
+      expr: (rate(node_network_receive_bytes_total{device!~"^tap.*|^vnet.*|^veth.*|^tun.*",project="jmsco",env="prod"}[1m]) + rate(node_network_transmit_bytes_total{device!~"^tap.*|^vnet.*|^veth.*|^tun.*",project="jmsco",env="prod"}[1m])) / node_network_speed_bytes{device!~"^tap.*|^vnet.*|^veth.*|^tun.*",project="jmsco",env="prod"} > 0.8 <10000
       for: 1m
       labels:
         severity: warning
       annotations:
-        summary: "LinuxServerNetworkInterfaceSaturated({{ $labels.instance }})"
+        summary: "LinuxServerNetworkInterfaceSaturated({{ $labels.host }})"
         description: "The network interface \"{{ $labels.device }}\" on \"{{ $labels.instance }}\" is getting overloaded.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     # <== Linux server conntrack limit
     - alert: LinuxServerConntrackLimit
-      expr: node_nf_conntrack_entries / node_nf_conntrack_entries_limit > 0.8
+      expr: node_nf_conntrack_entries{project="jmsco",env="prod"} / node_nf_conntrack_entries_limit{project="jmsco",env="prod"} > 0.8
       for: 5m
       labels:
         severity: warning
       annotations:
-        summary: "LinuxServerConntrackLimit({{ $labels.instance }})"
+        summary: "LinuxServerConntrackLimit({{ $labels.host }})"
         description: "The number of conntrack is approaching limit\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

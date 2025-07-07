@@ -15,12 +15,29 @@
     scrape_timeout: 10s
     scheme: http
     metrics_path: /metrics
-    # <== 服务发现机制 之 file_sd_configs
+    # 基于文件发现
     file_sd_configs:
     - files:
       - "file-sd-configs/wyc-project/prod/wyc-prod-node-exporter.yaml"
-      # <== 刷新文件内容的间隔时间，默认5m
       refresh_interval: 2s
+    # 重新标记
+    relabel_configs:
+    # <== 添加标签(指定key和value)
+    - source_labels: []
+      separator: ""
+      target_label: "project"
+      replacement: 'wyc'
+    - source_labels: []
+      separator: ""
+      target_label: "env"
+      replacement: 'prod'   
+    # <== 添加标签(新key的value根据原有label的value)
+    - source_labels:
+      - "__address__"
+      separator: ""
+      regex: ([^:]+)(.*)
+      target_label: "host"
+      replacement: "${1}"
 
   #- job_name: "wyc-prod-minio"
   #  scrape_interval: 15s
@@ -32,6 +49,18 @@
   #    - "file-sd-configs/wyc-project/prod/wyc-prod-minio.yaml"
   #    # 刷新文件中内容的间隔时间，默认5m
   #    refresh_interval: 2s
+  #  # 重新标记
+  #  relabel_configs:
+  #  # <== 添加标签(指定key和value)
+  #  - source_labels: []
+  #    separator: ""
+  #    target_label: "project"
+  #    replacement: 'wyc'
+  #  - source_labels: []
+  #    separator: ""
+  #    target_label: "env"
+  #    replacement: 'prod'
+
   #- job_name: "wyc-prod-mysql"
   #  scrape_interval: 15s
   #  scrape_timeout: 10s
@@ -42,6 +71,18 @@
   #    - "file-sd-configs/wyc-project/prod/wyc-prod-mysql.yaml"
   #    # 刷新文件中内容的间隔时间，默认5m
   #    refresh_interval: 2s
+  #  # 重新标记
+  #  relabel_configs:
+  #  # <== 添加标签(指定key和value)
+  #  - source_labels: []
+  #    separator: ""
+  #    target_label: "project"
+  #    replacement: 'wyc'
+  #  - source_labels: []
+  #    separator: ""
+  #    target_label: "env"
+  #    replacement: 'prod'
+
   #- job_name: "wyc-prod-mongodb"
   #  scrape_interval: 15s
   #  scrape_timeout: 10s
@@ -52,6 +93,18 @@
   #    - "file-sd-configs/wyc-project/prod/wyc-prod-mongodb.yaml"
   #    # 刷新文件中内容的间隔时间，默认5m
   #    refresh_interval: 2s
+  #  # 重新标记
+  #  relabel_configs:
+  #  # <== 添加标签(指定key和value)
+  #  - source_labels: []
+  #    separator: ""
+  #    target_label: "project"
+  #    replacement: 'wyc'
+  #  - source_labels: []
+  #    separator: ""
+  #    target_label: "env"
+  #    replacement: 'prod'
+
   #- job_name: "wyc-prod-redis"
   #  scrape_interval: 15s
   #  scrape_timeout: 10s
@@ -62,6 +115,18 @@
   #    - "file-sd-configs/wyc-project/prod/wyc-prod-redis.yaml"
   #    # 刷新文件中内容的间隔时间，默认5m
   #    refresh_interval: 2s
+  #  # 重新标记
+  #  relabel_configs:
+  #  # <== 添加标签(指定key和value)
+  #  - source_labels: []
+  #    separator: ""
+  #    target_label: "project"
+  #    replacement: 'wyc'
+  #  - source_labels: []
+  #    separator: ""
+  #    target_label: "env"
+  #    replacement: 'prod'
+
   #- job_name: "wyc-prod-rocketmq"
   #  scrape_interval: 15s
   #  scrape_timeout: 10s
@@ -72,6 +137,18 @@
   #    - "file-sd-configs/wyc-project/prod/wyc-prod-rocketmq.yaml"
   #    # 刷新文件中内容的间隔时间，默认5m
   #    refresh_interval: 2s
+  #  # 重新标记
+  #  relabel_configs:
+  #  # <== 添加标签(指定key和value)
+  #  - source_labels: []
+  #    separator: ""
+  #    target_label: "project"
+  #    replacement: 'wyc'
+  #  - source_labels: []
+  #    separator: ""
+  #    target_label: "env"
+  #    replacement: 'prod'
+
   #- job_name: "wyc-prod-nacos"
   #  scrape_interval: 15s
   #  scrape_timeout: 10s
@@ -82,6 +159,17 @@
   #    - "file-sd-configs/wyc-project/prod/wyc-prod-nacos.yaml"
   #    # 刷新文件中内容的间隔时间，默认5m
   #    refresh_interval: 2s
+  #  # 重新标记
+  #  relabel_configs:
+  #  # <== 添加标签(指定key和value)
+  #  - source_labels: []
+  #    separator: ""
+  #    target_label: "project"
+  #    replacement: 'wyc'
+  #  - source_labels: []
+  #    separator: ""
+  #    target_label: "env"
+  #    replacement: 'prod'
 
   ######## jmsco 生产 环境
   - job_name: "jmsco-prod-node-exporter"
@@ -94,4 +182,24 @@
       - "file-sd-configs/jmsco-project/prod/jmsco-prod-node-exporter.yaml"
       # 刷新文件中内容的间隔时间，默认5m
       refresh_interval: 2s
+    # 重新标记
+    relabel_configs:
+    # <== 添加标签(指定key和value)
+    - source_labels: []
+      separator: ""
+      target_label: "project"
+      replacement: 'jmsco'
+    - source_labels: []
+      separator: ""
+      target_label: "env"
+      replacement: 'prod'
+    # <== 添加标签(新key的value根据原有label的value)
+    - source_labels:
+      - "__address__"
+      separator: ""
+      regex: ([^:]+)(.*)
+      target_label: "host"
+      replacement: "${1}"
+
+
 
