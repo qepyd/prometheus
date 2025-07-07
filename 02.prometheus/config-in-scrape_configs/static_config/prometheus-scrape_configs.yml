@@ -9,18 +9,12 @@
 #### 以node_exporter的实例为例
 #
 #scrape_configs:
-  ######## wyc 生产 环境
+  ## <==================================================================== wyc 生产环境
   - job_name: "wyc-prod-node-exporter"
     scrape_interval: 15s
     scrape_timeout: 10s
     scheme: http
     metrics_path: /metrics
-    static_configs:
-    - targets: 
-      - "172.31.7.201:9100"   # 9100是node_exporter默认监听的端口
-      # labels:
-      #  "project": "wyc"
-      #  "env": "prod"
     # 重新标记
     relabel_configs:
     # <== 添加标签(指定key和value)
@@ -31,7 +25,7 @@
     - source_labels: []
       separator: ""
       target_label: "env"
-      replacement: 'prod'   
+      replacement: 'prod'
     # <== 添加标签(新key的value根据原有label的value)
     - source_labels:
       - "__address__"
@@ -39,18 +33,44 @@
       regex: ([^:]+)(.*)
       target_label: "host"
       replacement: "${1}"
+    # 静态配置
+    static_configs:
+    - targets: 
+      - "172.31.7.201:9100"   # 9100是node_exporter默认监听的端口
+      # labels:
+      #  "project": "wyc"
+      #  "env": "prod"
 
   #- job_name: "wyc-prod-minio"
   #  scrape_interval: 15s
   #  scrape_timeout: 10s
   #  scheme: http
   #  metrics_path: /metrics
+  #  # 重新标记
+  #  relabel_configs:
+  #  # <== 添加标签(指定key和value)
+  #  - source_labels: []
+  #    separator: ""
+  #    target_label: "project"
+  #    replacement: 'wyc'
+  #  - source_labels: []
+  #    separator: ""
+  #    target_label: "env"
+  #    replacement: 'prod'
+  #  # 静态配置
   #  static_configs:
   #  - targets:
   #    - "IP:PROT"  
   #    # labels:
   #    #  "project": "wyc"
   #    #  "env": "prod"
+
+
+  #- job_name: "wyc-prod-mysqld-exporter"
+  #  scrape_interval: 15s
+  #  scrape_timeout: 10s
+  #  scheme: http
+  #  metrics_path: /metrics
   #  # 重新标记
   #  relabel_configs:
   #  # <== 添加标签(指定key和value)
@@ -61,19 +81,21 @@
   #  - source_labels: []
   #    separator: ""
   #    target_label: "env"
-
-
-  #- job_name: "wyc-prod-mysql"
-  #  scrape_interval: 15s
-  #  scrape_timeout: 10s
-  #  scheme: http
-  #  metrics_path: /metrics
+  #    replacement: 'prod'
+  #  # 静态配置
   #  static_configs:
   #  - targets:
   #    - "IP:PROT"  
   #    # labels:
   #    #  "project": "wyc"
   #    #  "env": "prod"
+
+
+  #- job_name: "wyc-prod-mongodb-exporter"
+  #  scrape_interval: 15s
+  #  scrape_timeout: 10s
+  #  scheme: http
+  #  metrics_path: /metrics
   #  # 重新标记
   #  relabel_configs:
   #  # <== 添加标签(指定key和value)
@@ -84,18 +106,21 @@
   #  - source_labels: []
   #    separator: ""
   #    target_label: "env"
-
-  #- job_name: "wyc-prod-mongodb"
-  #  scrape_interval: 15s
-  #  scrape_timeout: 10s
-  #  scheme: http
-  #  metrics_path: /metrics
+  #    replacement: 'prod'
+  #  # 静态配置
   #  static_configs:
   #  - targets:
   #    - "IP:PROT"  
   #    # labels:
   #    #  "project": "wyc"
   #    #  "env": "prod"
+
+
+  #- job_name: "wyc-prod-redis-exporter"
+  #  scrape_interval: 15s
+  #  scrape_timeout: 10s
+  #  scheme: http
+  #  metrics_path: /metrics
   #  # 重新标记
   #  relabel_configs:
   #  # <== 添加标签(指定key和value)
@@ -106,40 +131,21 @@
   #  - source_labels: []
   #    separator: ""
   #    target_label: "env"
-
-  #- job_name: "wyc-prod-redis"
-  #  scrape_interval: 15s
-  #  scrape_timeout: 10s
-  #  scheme: http
-  #  metrics_path: /metrics
+  #    replacement: 'prod'
+  #  # 静态配置
   #  static_configs:
   #  - targets:
   #    - "IP:PROT"  
   #    # labels:
   #    #  "project": "wyc"
   #    #  "env": "prod"
-  #  # 重新标记
-  #  relabel_configs:
-  #  # <== 添加标签(指定key和value)
-  #  - source_labels: []
-  #    separator: ""
-  #    target_label: "project"
-  #    replacement: 'wyc'
-  #  - source_labels: []
-  #    separator: ""
-  #    target_label: "env"
 
-  #- job_name: "wyc-prod-rocketmq"
+
+  #- job_name: "wyc-prod-rocketmq-exporter"
   #  scrape_interval: 15s
   #  scrape_timeout: 10s
   #  scheme: http
   #  metrics_path: /metrics
-  #  static_configs:
-  #  - targets:
-  #    - "IP:PROT"
-  #    # labels:
-  #    #  "project": "wyc"
-  #    #  "env": "prod"
   #  # 重新标记
   #  relabel_configs:
   #  # <== 添加标签(指定key和value)
@@ -150,18 +156,21 @@
   #  - source_labels: []
   #    separator: ""
   #    target_label: "env"
+  #    replacement: 'prod'
+  #  # 静态配置
+  #  static_configs:
+  #  - targets:
+  #    - "IP:PROT"  
+  #    # labels:
+  #    #  "project": "wyc"
+  #    #  "env": "prod"
+
 
   #- job_name: "wyc-prod-nacos"
   #  scrape_interval: 15s
   #  scrape_timeout: 10s
   #  scheme: http
   #  metrics_path: /metrics
-  #  static_configs:
-  #  - targets:
-  #    - "IP:PROT"
-  #    # labels:
-  #    #  "project": "wyc"
-  #    #  "env": "prod"
   #  # 重新标记
   #  relabel_configs:
   #  # <== 添加标签(指定key和value)
@@ -172,19 +181,22 @@
   #  - source_labels: []
   #    separator: ""
   #    target_label: "env"
+  #    replacement: 'prod'
+  #  # 静态配置
+  #  static_configs:
+  #  - targets:
+  #    - "IP:PROT"  
+  #    # labels:
+  #    #  "project": "wyc"
+  #    #  "env": "prod"
 
-  ######## jmsco 生产 环境
+
+  ## <==================================================================== jmsco 生产环境
   - job_name: "jmsco-prod-node-exporter"
     scrape_interval: 15s
     scrape_timeout: 10s
     scheme: http
     metrics_path: /metrics
-    static_configs:
-    - targets:
-      - "172.31.7.202:9100"  # 9100是node_exporter默认监听的端口
-      # labels:
-      #  "project": "wyc"
-      #  "env": "jmsco"
     # 重新标记
     relabel_configs:
     # <== 添加标签(指定key和value)
@@ -203,4 +215,10 @@
       regex: ([^:]+)(.*)
       target_label: "host"
       replacement: "${1}"
-
+    # 静态配置
+    static_configs:
+    - targets:
+      - "172.31.7.202:9100"  # 9100是node_exporter默认监听的端口
+      # labels:
+      #  "project": "wyc"
+      #  "env": "jmsco"
