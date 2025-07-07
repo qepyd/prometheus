@@ -8,7 +8,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: "Job {{ $labels.job }} internal instance {{ $labels.instance }}"
+        summary: "LinuxServerOrNodeExporterDown({{ $labels.instance }})"
         description: "Linux server {{ $labels.instance }}\nor\nnode-exporter {{ $labels.instance }}\nDown"
     
     # <== Linux sever disk
@@ -18,7 +18,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: "Linux server out of disk space (instance {{ $labels.instance }})"
+        summary: "LinuxServerOutOfDiskSpace({{ $labels.instance }})"
         description: "LinuxServer disk is almost full (< 10% left)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
     
     # <== Linux server memory
@@ -28,7 +28,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: "Linux server out of memory (instance {{ $labels.instance }})"
+        summary: "LinuxServerOutOfMemory({{ $labels.instance }})"
         description: "LinuxServer memory is filling up (< 10% left)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}" 
     
     # <== Linux server cpu
@@ -38,7 +38,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Linux server high cpu load (instance {{ $labels.instance }})
+        summary: "LinuxServerHighCpuLoad({{ $labels.instance }})"
         description: "CPU load is > 80%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
     
     - alert: LinuxServerCpuHighIowait
@@ -47,7 +47,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Linux server cpu high iowait (instance {{ $labels.instance }})
+        summary: "LinuxServerCpuHighIowait({{ $labels.instance }})"
         description: "CPU iowait > 5%. A high iowait means that you are disk or network bound.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
     
     # <== Linux network
@@ -57,7 +57,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Linux server network interface saturated (instance {{ $labels.instance }})
+        summary: "LinuxServerNetworkInterfaceSaturated({{ $labels.instance }})"
         description: "The network interface \"{{ $labels.device }}\" on \"{{ $labels.instance }}\" is getting overloaded.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     # <== Linux server conntrack limit
@@ -67,6 +67,5 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Linux server conntrack limit (instance {{ $labels.instance }})
+        summary: "LinuxServerConntrackLimit({{ $labels.instance }})"
         description: "The number of conntrack is approaching limit\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
-
