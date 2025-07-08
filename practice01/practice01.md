@@ -1,4 +1,4 @@
-# 第1章 实践的相关环境说明
+# 第1章 prometheus相关介绍及实践的环境
 ## 1.1 prometheus相关介绍
 **相关网址**
 ```
@@ -20,8 +20,6 @@ CNCF生态将Prometheus分类于Observability（可观测性）类。
 <image src="./picture/prometheus-architecture.jpg" style="width: 100%; height: auto;">
 
 
-
-
 ## 1.2 为实践所准备的服务器
 基于传统环境下的实践(理解prometheus的相关知识点)，不涉及容器环境(docker、kubernetes)。
 ```
@@ -41,7 +39,7 @@ ubuntu 20.04   jmsco01    172.31.8.205  jmsco项目生产环境服务器(storage
 ubuntu 20.04   jmsco02    172.31.8.206  jmsco项目生产环境服务器(storage层、db层、中间件层、....、应用层、代理层)
 ```
 
-# 第2章 相关软件的安装及相关项介绍和配置
+# 第2章 相关软件的安装及相关项的介绍和配置
 ## 2.1 Prometheus的安装
 **说明**  
 在 pag01、page02 服务器上安装prometheus，主要是实现prometheus在抓取指标时的高可用，数据存储没有高可用，因为每个
