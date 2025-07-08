@@ -17,8 +17,7 @@ CNCF生态将Prometheus分类于Observability（可观测性）类。
 <image src="./picture/prometheus-cncf.jpg" style="width: 100%; height: auto;">
 
 
-**Prometheus和一些生态系统组件所组成的平面图**  
-官方：https://prometheus.io/docs/introduction/overview/#architecture  
+**Prometheus和一些生态系统组件所组成的平面图**官方：https://prometheus.io/docs/introduction/overview/#architecture  
 
 <image src="./picture/prometheus-architecture.jpg" style="width: 100%; height: auto;">
 
