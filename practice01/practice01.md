@@ -43,7 +43,10 @@ ubuntu 20.04   jmsco02    172.31.8.206  jmsco项目生产环境服务器(storage
 
 
 # 第2章 相关软件的安装及相关项的介绍和配置
-## 2.1 Prometheus的安装
+## 2.1 alertmanager的安装
+
+
+## 2.2 Prometheus的安装
 **说明**  
 在 pag01、page02 服务器上安装prometheus，主要是实现prometheus在抓取指标时的高可用，数据存储没有高可用，因为每个
 prometheus都内置有TSDB来作为本地存储。
@@ -119,5 +122,23 @@ http://172.31.8.201:9090
 http://172.31.8.202:9090
 ```
 
-## 2.2 添加Targes(prometheus) 
+## 2.3 prometheus添加相关的Targes
+### 2.3.1 添加targes(alertmanager)
+### 2.3.2 添加targes(prometheus)
+
+## 2.4 prometheus添加wyc项目生产环境相关应用作为Targes
+### 2.4.1 各服务器安装node-exporter及prometheus添加node-exporter作为Targes
+### 2.4.2 各服务器安装minio(对象存储)及prometheus添加minio作为targes
+### 2.4.3 各服务器安装mysql(db),mysqld-exporter及prometheus添加mysqld-exporter作为targes
+### 2.4.4 各服务器安装mongodb(db),mongodb-exporter及prometheus添加mongodb-exporter作为targes
+### 2.4.5 各服务器安装redis(db),redis-exporter及prometheus添加redis-exporter作为targes
+
+## 2.5 prometheus添加jmsco项目生产环境相关应用作为Targes
+
+
+
+
+
+ 
+
 
