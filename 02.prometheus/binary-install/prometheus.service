@@ -4,12 +4,19 @@ After=network.target
 
 [Service]
 Type=simple
-
+# 指定运行进程的用户
 User=root
 Group=root
 
+# 工作目录,即prometheus的安装后路径
 WorkingDirectory=/usr/local/prometheus/
-ExecStart=/usr/local/prometheus/prometheus 
+
+# 启动命令,未指定远端存储,即本地存储,指定了数据存放路径,保存数据有效期
+ExecStart=/usr/local/prometheus/prometheus --storage.tsdb.path="data/" \
+          --storage.tsdb.retention.time=15d                            \
+          --storage.tsdb.retention.size=512MB                          \
+          --web.enable-lifecycle
+
 KillMode=control-group
 Restart=on-failure
 
