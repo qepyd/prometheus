@@ -38,6 +38,9 @@ ubuntu 20.04   wyc02      172.31.8.206  wyc项目生产环境服务器(storage�
 ubuntu 20.04   jmsco01    172.31.8.205  jmsco项目生产环境服务器(storage层、db层、中间件层、....、应用层、代理层)
 ubuntu 20.04   jmsco02    172.31.8.206  jmsco项目生产环境服务器(storage层、db层、中间件层、....、应用层、代理层)
 ```
+<br>
+<br>
+
 
 # 第2章 相关软件的安装及相关项的介绍和配置
 ## 2.1 Prometheus的安装
