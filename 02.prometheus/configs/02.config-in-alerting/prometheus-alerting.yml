@@ -1,0 +1,13 @@
+#### 说明 
+# 
+# prometheus对接alertmanager
+#  prometheus根据 告警规则 会将告警 push 给alertmanager
+#
+#### 结束
+
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets:
+      - 172.31.8.201:9093
+      - 172.31.8.202:9093

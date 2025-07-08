@@ -1,0 +1,11 @@
+global:
+  # 刮取目标上的metrics的超时时长,默认10s
+  scrape_timeout: 10s
+
+  # 从目标上刮取metrics的间隔时长,默认15s
+  scrape_interval: 15s
+  
+  # 相关rules(记录规则、告警规则)的评估时长,默认15s
+  evaluation_interval: 15s
+
+

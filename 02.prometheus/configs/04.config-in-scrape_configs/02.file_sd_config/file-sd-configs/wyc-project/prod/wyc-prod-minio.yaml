@@ -1,0 +1,7 @@
+- targets:
+  - "172.31.8.209:9000"  # 9000是minio提供metrics抓取的端口
+  - "172.31.8.210:9000"  # 9000是minio提供metrics抓取的端口
+  - "172.31.8.211:9000"  # 9000是minio提供metrics抓取的端口
+  #labels:
+  #  "project": "wyc"
+  #  "env": "prod"

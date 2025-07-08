@@ -9,7 +9,10 @@ User=root
 Group=root
 
 WorkingDirectory=/usr/local/alertmanager/
-ExecStart=/usr/local/alertmanager/alertmanager
+
+ExecStart=/usr/local/alertmanager/alertmanager --web.listen-address=0.0.0.0:9093 \
+   --cluster.listen-address=0.0.0.0:9094   --cluster.peer=172.31.8.201:9094
+
 KillMode=control-group
 Restart=on-failure
 

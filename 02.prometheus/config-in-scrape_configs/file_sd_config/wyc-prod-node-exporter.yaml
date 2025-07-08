@@ -1,7 +1,0 @@
-- targets:
-  - "172.31.8.205:9100"  # 9100是node_exporter的默认监听端口
-  - "172.31.8.206:9100"  # 9100是node_exporter的默认监听端口
-  - "172.31.8.207:9100"  # 9100是node_exporter的默认监听端口
-  #labels:
-  #  "project": "wyc"
-  #  "env": "prod"

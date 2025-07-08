@@ -1,0 +1,12 @@
+remote_write:
+  # 将写请求发送给 VictoriaMetrics 的 vminsert 组件实例，
+  # 由其写入到storage，会进行分片和分片副本的设置。
+  - url: "http://vminsert01.qepyd.com:8480/prometheus" 
+  - url: "http://vminsert02.qepyd.com:8480/prometheus" 
+
+remote_read:
+  # 将读请求发送给 VictoriaMetrics 的 vmselect 组件实例，
+  # 由其从vmstorage中查询并组合结果,最终返回。
+  - url: "http://vmselect01.qepyd.com:8481/prometheus"
+  - url: "http://vmselect02.qepyd.com:8481/prometheus"
+

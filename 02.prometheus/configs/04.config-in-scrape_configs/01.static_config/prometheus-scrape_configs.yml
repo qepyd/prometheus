@@ -1,5 +1,7 @@
 #### 说明
 #
+#  Prometheus其prometheus.yaml中的job通过"静态配置(static_configs)"发现instances(实例)
+#  参考：https://prometheus.io/docs/prometheus/latest/configuration/configuration/#static_config
 #     
 #### 结束
 
@@ -7,6 +9,30 @@
 #### 以node_exporter的实例为例
 #
 #scrape_configs:
+  ## <==================================================================== prometheus
+  - job_name: "prometheus"
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    scheme: http
+    metrics_path: /metrics
+    # 静态配置
+    static_configs:
+    - targets:
+      - "172.31.7.201:9090"
+      - "172.31.7.202:9090"
+
+  ## <==================================================================== alertmanager
+  - job_name: "alertmanager"
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    scheme: http
+    metrics_path: /metrics
+    # 静态配置
+    static_configs:
+    - targets:
+      - "172.31.7.201:9093"
+      - "172.31.7.202:9093"
+
   ## <==================================================================== wyc 生产环境
   - job_name: "wyc-prod-node-exporter"
     scrape_interval: 15s
@@ -31,11 +57,13 @@
       regex: ([^:]+)(.*)
       target_label: "host"
       replacement: "${1}"
-    # 基于文件发现
-    file_sd_configs:
-    - files:
-      - "file-sd-configs/wyc-project/prod/wyc-prod-node-exporter.yaml"
-      refresh_interval: 2s
+    # 静态配置
+    static_configs:
+    - targets: 
+      - "172.31.7.201:9100"   # 9100是node_exporter默认监听的端口
+      # labels:
+      #  "project": "wyc"
+      #  "env": "prod"
 
   #- job_name: "wyc-prod-minio"
   #  scrape_interval: 15s
@@ -53,12 +81,14 @@
   #    separator: ""
   #    target_label: "env"
   #    replacement: 'prod'
-  #  # 文件发现
-  #  file_sd_configs:
-  #  - files:
-  #    - "file-sd-configs/wyc-project/prod/wyc-prod-minio.yaml"
-  #    # 刷新文件中内容的间隔时间，默认5m
-  #    refresh_interval: 2s
+  #  # 静态配置
+  #  static_configs:
+  #  - targets:
+  #    - "IP:PROT"  
+  #    # labels:
+  #    #  "project": "wyc"
+  #    #  "env": "prod"
+
 
   #- job_name: "wyc-prod-mysqld-exporter"
   #  scrape_interval: 15s
@@ -76,12 +106,14 @@
   #    separator: ""
   #    target_label: "env"
   #    replacement: 'prod'
-  #  # 文件发现
-  #  file_sd_configs:
-  #  - files:
-  #    - "file-sd-configs/wyc-project/prod/wyc-prod-mysqld-exporter.yaml"
-  #    # 刷新文件中内容的间隔时间，默认5m
-  #    refresh_interval: 2s
+  #  # 静态配置
+  #  static_configs:
+  #  - targets:
+  #    - "IP:PROT"  
+  #    # labels:
+  #    #  "project": "wyc"
+  #    #  "env": "prod"
+
 
   #- job_name: "wyc-prod-mongodb-exporter"
   #  scrape_interval: 15s
@@ -99,12 +131,14 @@
   #    separator: ""
   #    target_label: "env"
   #    replacement: 'prod'
-  #  # 文件发现
-  #  file_sd_configs:
-  #  - files:
-  #    - "file-sd-configs/wyc-project/prod/wyc-prod-mongodb-exporter.yaml"
-  #    # 刷新文件中内容的间隔时间，默认5m
-  #    refresh_interval: 2s
+  #  # 静态配置
+  #  static_configs:
+  #  - targets:
+  #    - "IP:PROT"  
+  #    # labels:
+  #    #  "project": "wyc"
+  #    #  "env": "prod"
+
 
   #- job_name: "wyc-prod-redis-exporter"
   #  scrape_interval: 15s
@@ -122,12 +156,14 @@
   #    separator: ""
   #    target_label: "env"
   #    replacement: 'prod'
-  #  # 文件发现
-  #  file_sd_configs:
-  #  - files:
-  #    - "file-sd-configs/wyc-project/prod/wyc-prod-redis-exporter.yaml"
-  #    # 刷新文件中内容的间隔时间，默认5m
-  #    refresh_interval: 2s
+  #  # 静态配置
+  #  static_configs:
+  #  - targets:
+  #    - "IP:PROT"  
+  #    # labels:
+  #    #  "project": "wyc"
+  #    #  "env": "prod"
+
 
   #- job_name: "wyc-prod-rocketmq-exporter"
   #  scrape_interval: 15s
@@ -145,12 +181,14 @@
   #    separator: ""
   #    target_label: "env"
   #    replacement: 'prod'
-  #  # 文件发现
-  #  file_sd_configs:
-  #  - files:
-  #    - "file-sd-configs/wyc-project/prod/wyc-prod-rocketmq-exporter.yaml"
-  #    # 刷新文件中内容的间隔时间，默认5m
-  #    refresh_interval: 2s
+  #  # 静态配置
+  #  static_configs:
+  #  - targets:
+  #    - "IP:PROT"  
+  #    # labels:
+  #    #  "project": "wyc"
+  #    #  "env": "prod"
+
 
   #- job_name: "wyc-prod-nacos"
   #  scrape_interval: 15s
@@ -168,12 +206,13 @@
   #    separator: ""
   #    target_label: "env"
   #    replacement: 'prod'
-  #  # 文件发现
-  #  file_sd_configs:
-  #  - files:
-  #    - "file-sd-configs/wyc-project/prod/wyc-prod-nacos.yaml"
-  #    # 刷新文件中内容的间隔时间，默认5m
-  #    refresh_interval: 2s
+  #  # 静态配置
+  #  static_configs:
+  #  - targets:
+  #    - "IP:PROT"  
+  #    # labels:
+  #    #  "project": "wyc"
+  #    #  "env": "prod"
 
 
   ## <==================================================================== jmsco 生产环境
@@ -200,9 +239,10 @@
       regex: ([^:]+)(.*)
       target_label: "host"
       replacement: "${1}"
-    # 文件发现
-    file_sd_configs:
-    - files:
-      - "file-sd-configs/jmsco-project/prod/jmsco-prod-node-exporter.yaml"
-      # 刷新文件中内容的间隔时间，默认5m
-      refresh_interval: 2s
+    # 静态配置
+    static_configs:
+    - targets:
+      - "172.31.7.202:9100"  # 9100是node_exporter默认监听的端口
+      # labels:
+      #  "project": "wyc"
+      #  "env": "jmsco"
