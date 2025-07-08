@@ -16,12 +16,8 @@ CNCF生态将Prometheus分类于Observability（可观测性）类。
 <image src="./picture/prometheus-cncf.jpg" style="width: 100%; height: auto;">
 
 
-## 1.2 基于何种环境实践
-```
-传统环境下的实践，非容器(docker、kubernetes)，更不会使用prometheus去收集kubernetes各组件、各应用的指标。
-```
-
-## 1.3 准备的相关服务器
+## 1.2 准备的相关服务器
+基于传统环境下的实践(理解prometheus的相关知识点)，不涉及容器环境(docker、kubernetes)。
 ```
 操作系统       主机名     IP地址        部署的应用
 ubuntu 20.04   pag01      172.31.8.201  prometheus、alertmanager、grafana
@@ -39,13 +35,10 @@ ubuntu 20.04   jmsco01    172.31.8.205  jmsco项目生产环境服务器(storage
 ubuntu 20.04   jmsco02    172.31.8.206  jmsco项目生产环境服务器(storage层、db层、中间件层、....、应用层、代理层)
 ```
 
-
-
-
 # 第2章 相关软件的安装及相关项介绍和配置
 ## 2.1 Prometheus的安装
-**说明**
-在pag01、page02服务器上安装prometheus，主要是实现prometheus在抓取指标时的高可用，数据存储没有高可用，因为每个
+**说明**  
+在 pag01、page02 服务器上安装prometheus，主要是实现prometheus在抓取指标时的高可用，数据存储没有高可用，因为每个
 prometheus都内置有TSDB来作为本地存储。
 
 **架构图**
@@ -119,7 +112,5 @@ http://172.31.8.201:9090
 http://172.31.8.202:9090
 ```
 
-### 2.2 添加Targes(prometheus) 
-
-
+## 2.2 添加Targes(prometheus) 
 
