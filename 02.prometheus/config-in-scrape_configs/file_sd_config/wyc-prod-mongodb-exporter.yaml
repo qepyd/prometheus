@@ -1,0 +1,7 @@
+- targets:
+  - "172.31.8.205:9216"  # 9216是mongodb_exporter的默认监听端口
+  - "172.31.8.206:9216"  # 9216是mongodb_exporter的默认监听端口
+  - "172.31.8.207:9216"  # 9216是mongodb_exporter的默认监听端口
+  #labels:
+  #  "project": "wyc"
+  #  "env": "prod"
