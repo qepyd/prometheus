@@ -29,14 +29,20 @@ ubuntu 20.04   pag02      172.31.8.202  prometheus、alertmanager、grafana
 
 ubuntu 20.04   vmssi01    172.31.8.203  prometheus的远端存储(VctoriaMetrics的vmstorage、vmselect、vminsert)
 ubuntu 20.04   vmssi02    172.31.8.204  prometheus的远端存储(VictoriaMetrics的vmstorage、vmselect、vminsert)
-                           #
-                           # 以上两台服务器在最后的最后才会涉及到
-                           # 
-ubuntu 20.04   wyc01      172.31.8.205  wyc项目生产环境服务器(storage层、db层、中间件层、....、应用层、代理层)
-ubuntu 20.04   wyc02      172.31.8.206  wyc项目生产环境服务器(storage层、db层、中间件层、....、应用层、代理层)
 
-ubuntu 20.04   jmsco01    172.31.8.205  jmsco项目生产环境服务器(storage层、db层、中间件层、....、应用层、代理层)
-ubuntu 20.04   jmsco02    172.31.8.206  jmsco项目生产环境服务器(storage层、db层、中间件层、....、应用层、代理层)
+
+ubuntu 20.04   wyclb01    172.31.8.205  wyc项目生产环境代理/web层(keepalived、nginx)
+ubuntu 20.04   wyclb02    172.31.8.206  wyc项目生产环境代理/web层(keepalived、nginx)
+
+ubuntu 20.04   wycapp01   172.31.8.207  wyc项目生产环境应用层(后端应用程序)
+ubuntu 20.04   wycapp02   172.31.8.208  wyc项目生产环境应用层(后端应用程序)
+
+ubuntu 20.04   wycmid01   172.31.8.209  wyc项目生产环境中间件层(minio、mongodb、redis、nacos)
+ubuntu 20.04   wycmid02   172.31.8.210  wyc项目生产环境中间件层(minio、mongodb、redis、nacos)
+ubuntu 20.04   wycmid03   172.31.8.211  wyc项目生产环境中间件层(minio、mongodb、redis、nacos)
+
+ubuntu 20.04   wycdb01    172.31.8.212  wyc项目生产环境mysql
+ubuntu 20.04   wycdb02    172.31.8.213  wyc项目生产环境mysql
 ```
 <br>
 <br>
@@ -127,18 +133,8 @@ http://172.31.8.202:9090
 ### 2.3.2 添加targes(prometheus)
 
 ## 2.4 prometheus添加wyc项目生产环境相关应用作为Targes
-### 2.4.1 各服务器安装node-exporter及prometheus添加node-exporter作为Targes
-### 2.4.2 各服务器安装minio(对象存储)及prometheus添加minio作为targes
-### 2.4.3 各服务器安装mysql(db),mysqld-exporter及prometheus添加mysqld-exporter作为targes
-### 2.4.4 各服务器安装mongodb(db),mongodb-exporter及prometheus添加mongodb-exporter作为targes
-### 2.4.5 各服务器安装redis(db),redis-exporter及prometheus添加redis-exporter作为targes
-
-## 2.5 prometheus添加jmsco项目生产环境相关应用作为Targes
-
-
-
-
-
- 
-
-
+### 2.4.1 prometheus添加node-exporter作为Targes
+### 2.4.2 prometheus添加minio作为targes
+### 2.4.3 prometheus添加mysqld-exporter作为targes
+### 2.4.4 prometheus添加mongodb-exporter作为targes
+### 2.4.5 prometheus添加redis-exporter作为targes
